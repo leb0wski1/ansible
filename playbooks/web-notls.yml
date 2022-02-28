@@ -1,0 +1,29 @@
+- name: Configure webserver with nginx
+  hosts: TEST
+  become: true
+  tasks:
+    - name: install nginx
+      yum: name=nginx update_cache=yes state=latest
+
+    - name: start nginx
+      service: name=nginx state=started enabled=yes
+
+    - name: copy nginx copy file
+#For Ubuntu
+#      copy: src=files/nginx.conf dest=/etc/nginx/sites-available/default
+#For RedHat
+      copy: src=files/nginx.conf dest=/etc/nginx/conf.d/default.conf
+
+#For Ubuntu
+#    - name: enable configuration
+#      file: >
+#        dest=/etc/nginx/sites-enabled/default
+#        src=/etc/nginx/sites-available/default
+#        state=link
+
+    - name: copy index.html
+      template: src=templates/index.html.j2 dest=/usr/share/nginx/html/index.html
+        mode=0644
+
+    - name: restart nginx
+      service: name=nginx state=restarted
