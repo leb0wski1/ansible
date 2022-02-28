@@ -8,10 +8,7 @@
     server_name: localhost
   tasks:
     - name: install nginx
-      yum: name=nginx update_cache=yes cache_valid_time=3600 state=latest
-
-    - name: start nginx
-      service: name=nginx state=started enabled=yes
+      yum: name=nginx update_cache=yes state=latest
 
     - name: create directories for ssl certificates
       file: path=/etc/nginx/ssl state=directory

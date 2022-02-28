@@ -14,3 +14,7 @@ _book
 *.epub
 *.mobi
 *.pdf
+
+nginx.crt
+nginx.key
+
